@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 
 import '../utilities/constants.dart';
-import './register.dart';
+import './login.dart';
 
 const bgColor = const Color(0xFF008CFA);
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
 
   Widget _registerMessageButton() {
     return Container(
       // alignment: Alignment.bottomCenter,
       child: FlatButton(
         onPressed: () => {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()))
+          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()))
         },
         padding: EdgeInsets.only(right: 0.0),
         child: Text(
-          "Don't have an account yet? Register",
+          "Already have an account? Login",
           style: cSignUpSignInDecoration,
         ),
       ),
     );
   }
 
-  Widget _loginButton() {
+  Widget _registerButton() {
     return Container(
       alignment: Alignment.centerRight,
       child: Container(
@@ -45,58 +45,12 @@ class _LoginPageState extends State<LoginPage> {
             onPressed: () => print("Enter"),
             color: Colors.white,
             child: Text(
-              "Login",
+              "Register",
               style: cLoginButton,
               )
             ),
           ),
       ),
-    );
-  }
-  
-  Widget _usernameInput() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text("Sign In", style: cTitleStyle,),
-        SizedBox(height: 10.0,),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: cInputDecoration,
-          height: 53.0,
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              border: InputBorder.none, 
-              hintText: 'Username', 
-              contentPadding: const EdgeInsets.only(left: 25, right: 30),
-              hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w200)
-              ),
-          ),
-        )
-      ],
-    );
-  }
-  
-  Widget _passwordInput() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: cInputDecoration,
-          height: 53.0,
-          child: TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              border: InputBorder.none, 
-              hintText: 'Password',
-              hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
-              contentPadding: const EdgeInsets.only(left: 25, right: 30),
-              ),
-          ),
-        )
-      ],
     );
   }
   
@@ -122,23 +76,34 @@ class _LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   Text("Flip It!", style: cFlipItStyle,),
                   SizedBox(height: 88.0,),
-                  _usernameInput(),
-                  SizedBox(height: 30.0,),
-                  _passwordInput(),
-                  SizedBox(height: 15.0,),
-                  _loginButton(),
-                  // SizedBox(height: 15.0,),
-                  // _registerMessageButton()
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Sign Up", style: cTitleStyle,),
+                      SizedBox(height: 10.0,),
+                      FormInput('Name', false),
+                      SizedBox(height: 20.0,),
+                      FormInput('Email', false),
+                      SizedBox(height: 20.0,),
+                      FormInput('Password', true),
+                      SizedBox(height: 20.0,),
+                      FormInput('Confirm Password', true),
+                      SizedBox(height: 15.0,),
+                      _registerButton(),
+                    ],
+                  ),
+                  // ---------
+
                 ],
               ),
             ),
           ),
           Container(
-            alignment: Alignment(-2.5, 0.9),
+            alignment: Alignment(-2.6, 0.86),
             child: Image(
-              height: 307,
-              width: 361,
-              image: AssetImage('assets/standing-6.png'),
+              height: 280,
+              width: 341,
+              image: AssetImage('assets/standing-19.png'),
               fit: BoxFit.contain,
               alignment: Alignment.bottomLeft,
             ),
@@ -150,6 +115,31 @@ class _LoginPageState extends State<LoginPage> {
             )
           ),
       ],)
+    );
+  }
+}
+
+class FormInput extends StatelessWidget {
+  final String placeholderName;
+  final bool isPassword;
+
+  const FormInput(this.placeholderName, this.isPassword);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      decoration: cInputDecoration,
+      height: 53.0,
+      child: TextField(
+        keyboardType: TextInputType.emailAddress,
+        obscureText: isPassword,
+        decoration: InputDecoration(
+          border: InputBorder.none, 
+          hintText: placeholderName,
+          contentPadding: const EdgeInsets.only(left: 25, right: 30),
+          hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w200)
+          ),
+      ),
     );
   }
 }
