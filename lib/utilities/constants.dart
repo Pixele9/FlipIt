@@ -41,6 +41,17 @@ final cButtonDecoration = BoxDecoration(
   ],
 );
 
+final cMenuButtonDecoration = BoxDecoration(
+  borderRadius: BorderRadius.circular(15.0),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.black38,
+      blurRadius: 0.0,
+      offset: Offset(0, 8),
+    ),
+  ],
+);
+
 final cSignUpSignInDecoration = GoogleFonts.montserrat(
   color: Colors.white,
   fontWeight: FontWeight.w300,
