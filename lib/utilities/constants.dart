@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 const primaryColor = const Color(0xFF008CFA);
 const secondaryColor = const Color(0xFF006DC3);
+const blackColor = const Color(0xFF414141);
 
 final cLoginButton = GoogleFonts.montserrat( // Text Style
   fontWeight: FontWeight.w300,
@@ -48,9 +49,9 @@ final cMenuButtonDecoration = BoxDecoration(
   borderRadius: BorderRadius.circular(15.0),
   boxShadow: [
     BoxShadow(
-      color: Colors.black38,
+      color: secondaryColor,
       blurRadius: 0.0,
-      offset: Offset(0, 8),
+      offset: Offset(0, 11),
     ),
   ],
 );
@@ -59,4 +60,10 @@ final cSignUpSignInDecoration = GoogleFonts.montserrat(
   color: Colors.white,
   fontWeight: FontWeight.w300,
   fontSize: 12,
+);
+
+final cMenuButtonsText = GoogleFonts.montserrat(
+  color: blackColor,
+  fontWeight: FontWeight.w900,
+  fontSize: 34.0,
 );
