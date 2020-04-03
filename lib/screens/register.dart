@@ -12,6 +12,19 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
 
+  Widget _decorImage() {
+    return Container(
+      alignment: Alignment(-2.6, 0.86),
+      child: Image(
+        height: 280,
+        width: 341,
+        image: AssetImage('assets/standing-19.png'),
+        fit: BoxFit.contain,
+        alignment: Alignment.bottomLeft,
+      ),
+    );
+  }
+
   Widget _registerMessageButton() {
     return Container(
       // alignment: Alignment.bottomCenter,
@@ -57,6 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: true, // prevents messing up w/ elements on screen
       body: Stack(
         children: <Widget>[
           Container(
@@ -92,28 +106,33 @@ class _RegisterPageState extends State<RegisterPage> {
                       _registerButton(),
                     ],
                   ),
-                  // ---------
-
+                 _decorImage(),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: _registerMessageButton(),
+                    )
+                  ),
                 ],
               ),
             ),
           ),
-          Container(
-            alignment: Alignment(-2.6, 0.86),
-            child: Image(
-              height: 280,
-              width: 341,
-              image: AssetImage('assets/standing-19.png'),
-              fit: BoxFit.contain,
-              alignment: Alignment.bottomLeft,
-            ),
-          ),
-          Container(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: _registerMessageButton(),
-            )
-          ),
+          // Container(
+          //   alignment: Alignment(-2.6, 0.86),
+          //   child: Image(
+          //     height: 280,
+          //     width: 341,
+          //     image: AssetImage('assets/standing-19.png'),
+          //     fit: BoxFit.contain,
+          //     alignment: Alignment.bottomLeft,
+          //   ),
+          // ),
+          // Container(
+          //   child: Align(
+          //     alignment: Alignment.bottomCenter,
+          //     child: _registerMessageButton(),
+          //   )
+          // ),
       ],)
     );
   }
