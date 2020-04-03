@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../utilities/constants.dart';
 import './register.dart';
+import './menu.dart';
 
 const bgColor = const Color(0xFF008CFA);
 
@@ -42,7 +43,10 @@ class _LoginPageState extends State<LoginPage> {
             borderRadius: new BorderRadius.circular(100.0),
           ),
           child: FlatButton(
-            onPressed: () => print("Enter"),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Menu()),
+            ),
             color: Colors.white,
             child: Text(
               "Login",
