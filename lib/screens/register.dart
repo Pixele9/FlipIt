@@ -143,6 +143,7 @@ class FormInput extends StatelessWidget {
   final bool isPassword;
 
   const FormInput(this.placeholderName, this.isPassword);
+  
   @override
   Widget build(BuildContext context) {
     return Container(

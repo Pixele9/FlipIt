@@ -41,7 +41,7 @@ class Menu extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   _menuButton("New\nRoulette", context),
-                                  _menuButton("New\nFlip Toss", context),
+                                  _menuButton("New\nCoin Toss", context),
                                   _menuButton("Join\nGame", context)
                                 ],
                                 ),
