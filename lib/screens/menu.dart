@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../utilities/constants.dart';
+import './new_roulette.dart';
 
 class Menu extends StatelessWidget {
   @override
@@ -40,9 +41,9 @@ class Menu extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
-                                    _menuButton("New\nRoulette"),
-                                    _menuButton("New\nFlip"),
-                                    _menuButton("Join\nGame")
+                                    _menuButton("New\nRoulette", context),
+                                    _menuButton("New\nFlip", context),
+                                    _menuButton("Join\nGame", context)
                                   ],
                                   ),
                               ),
@@ -64,7 +65,6 @@ class Menu extends StatelessWidget {
         )
     );
   }
-}
 
 Widget _menuButton(String texto, BuildContext context) {
     return Container(
@@ -79,7 +79,9 @@ Widget _menuButton(String texto, BuildContext context) {
             borderRadius: new BorderRadius.circular(15.0),
           ),
           child: FlatButton(
-            onPressed: () => print("Botón :D"),
+            onPressed: () =>  {
+            Navigator.of(context).push(_createRoute())
+          },
             color: Colors.white,
             child: Container(
               alignment: Alignment.centerLeft,
@@ -95,4 +97,25 @@ Widget _menuButton(String texto, BuildContext context) {
       ),
     );
   }
+
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => Roulette(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(1.0, 0.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
+
 
