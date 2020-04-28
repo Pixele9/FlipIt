@@ -25,28 +25,39 @@ class Menu extends StatelessWidget {
                               SizedBox(height: 40.0),
                               Container(
                                 alignment: Alignment.center,
-                                margin: const EdgeInsets.only(top: 30.0, bottom: 50.0),
+                                margin: const EdgeInsets.only(top: 30.0, bottom: 30.0),
                                 width: MediaQuery.of(context).size.width,
                                 child: Text(
                                   "Flip It!",
                                   style: cFlipItStyle,
                                 ), 
                             ),
-                            Container(
-                              height: 500.0,
-                              width: MediaQuery.of(context).size.width,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  _menuButton("New\nRoulette", context),
-                                  _menuButton("New\nCoin Toss", context),
-                                  _menuButton("Join\nGame", context)
-                                ],
+                              Container(
+                                height: 500,
+                                width: MediaQuery.of(context).size.width,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    _menuButton("New\nRoulette"),
+                                    _menuButton("New\nFlip"),
+                                    _menuButton("Join\nGame")
+                                  ],
+                                  ),
+                              ),
+                              Expanded(child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Image(
+                                  height: 170,
+                                  width: 200,
+                                  image: AssetImage('assets/standing-19.png'),
+                                  fit: BoxFit.fitHeight,
+                                  alignment: Alignment.bottomRight,
+                                  ),
                                 ),
-                            ),
-                          ]
+                              ) 
+                            ]
                         )
                     );
             }),
@@ -58,28 +69,29 @@ class Menu extends StatelessWidget {
 Widget _menuButton(String texto, BuildContext context) {
     return Container(
       child: Container(
-        width: MediaQuery.of(context).size.width - 60,
+        margin: const EdgeInsets.only(bottom: 10.0),
         decoration: cMenuButtonDecoration,
         child: ButtonTheme(
-          height: 120.0,
+          height: 140.0,
           minWidth: 300.0,
-          padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 8.0),
-          splashColor: Colors.grey[200],
+          splashColor: Colors.grey[350],
           shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(15.0),
           ),
           child: FlatButton(
-            onPressed: () => print("Botón :)"),
+            onPressed: () => print("Botón :D"),
             color: Colors.white,
-            child: Align(
+            child: Container(
               alignment: Alignment.centerLeft,
+              width: 250,
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 texto,
-                style: cMenuButtonsText,
-              ),
+                style: cMenuButtontext,
+              )
             )
-            ),
           ),
+        ),
       ),
     );
   }

@@ -56,6 +56,12 @@ final cMenuButtonDecoration = BoxDecoration(
   ],
 );
 
+final cMenuButtontext = GoogleFonts.montserrat( // Text Style
+  color: Colors.black,
+  fontWeight: FontWeight.w900,
+  fontSize: 35,
+);
+
 final cSignUpSignInDecoration = GoogleFonts.montserrat(
   color: Colors.white,
   fontWeight: FontWeight.w300,
