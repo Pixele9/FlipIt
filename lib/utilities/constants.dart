@@ -22,9 +22,27 @@ final cTitleStyle = GoogleFonts.montserrat(
   fontSize: 30,
 );
 
+final cLabelStyle = GoogleFonts.montserrat(
+  color: Colors.white,
+  fontWeight: FontWeight.w200,
+  fontSize: 30,
+);
+
 final cInputDecoration = BoxDecoration(
   color: Color(0xFFFFFFFF),
   borderRadius: BorderRadius.circular(100.0),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.black12,
+      blurRadius: 6.0,
+      offset: Offset(0, 2),
+    ),
+  ],
+);
+
+final cOptionInputDecoration = BoxDecoration(
+  color: Color(0xFFFFFFFF),
+  borderRadius: BorderRadius.circular(10.0),
   boxShadow: [
     BoxShadow(
       color: Colors.black12,

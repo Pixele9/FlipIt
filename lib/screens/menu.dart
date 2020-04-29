@@ -102,7 +102,7 @@ Widget _menuButton(String texto, BuildContext context) {
 
 Route _createRoute() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => Roulette(),
+    pageBuilder: (context, animation, secondaryAnimation) => NewRoulette(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = Offset(1.0, 0.0);
       var end = Offset.zero;
