@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utilities/constants.dart';
 
+//TODO: Individual widgets for stuff in the return statement
+
 class NewRoulette extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -64,6 +66,7 @@ class NewRoulette extends StatelessWidget {
                                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
                                     decoration: InputDecoration(
                                       border: InputBorder.none, 
+                                      hintText: '0-8',
                                       contentPadding: const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 30),
                                       ),
                                     ),
