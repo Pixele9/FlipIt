@@ -27,7 +27,7 @@ class NewRoulette extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width,
                                 child: Text(
                                   "New Roulette",
-                                  style: cFlipItStyle,
+                                  style: cTitleViews,
                                 ), 
                             ), 
                             SizedBox(

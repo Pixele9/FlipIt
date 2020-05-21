@@ -91,3 +91,9 @@ final cMenuButtonsText = GoogleFonts.montserrat(
   fontWeight: FontWeight.w900,
   fontSize: 34.0,
 );
+
+final cTitleViews = GoogleFonts.montserrat(
+  color: Colors.white,
+  fontWeight: FontWeight.w900,
+  fontSize: 45,
+);
