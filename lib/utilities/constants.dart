@@ -97,3 +97,22 @@ final cTitleViews = GoogleFonts.montserrat(
   fontWeight: FontWeight.w900,
   fontSize: 45,
 );
+
+final cDataStyle = GoogleFonts.montserrat(
+  color: Colors.white,
+  fontWeight: FontWeight.w600,
+  fontSize: 25.0,
+);
+
+final cSubDataStyle = GoogleFonts.montserrat(
+  color: Colors.white,
+  fontWeight: FontWeight.w300,
+  fontSize: 18.0,
+);
+
+final cCancel = GoogleFonts.montserrat(
+  color: Colors.redAccent,
+);
+
+final cfont = GoogleFonts.montserrat(
+);
