@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../utilities/constants.dart';
 
 class Profile extends StatefulWidget {
@@ -14,6 +13,7 @@ class _ProfileState extends State<Profile> {
   var name = "José Miguel Ángel Nuñéz Pérez";
   var mail = "jose_mike_a.n.p@correo.com";
   var password = "";
+  var profilePictureURL = "assets/prueba.png";
   final TextEditingController controller = TextEditingController();
   //Show alert
 
@@ -141,7 +141,7 @@ class _ProfileState extends State<Profile> {
                               child: ListView(
                               children: <Widget>[
                                 CircleAvatar(
-                                  backgroundImage: AssetImage('assets/prueba.png'),
+                                  backgroundImage: AssetImage(profilePictureURL),
                                   radius: 53,
                                ),
                               ],
