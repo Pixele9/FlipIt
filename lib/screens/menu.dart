@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../utilities/constants.dart';
 import './new_roulette.dart';
+import './profile.dart';
 
 class Menu extends StatelessWidget {
   @override
@@ -41,9 +42,9 @@ class Menu extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
-                                    _menuButton("New\nRoulette", context),
-                                    _menuButton("New\nFlip", context),
-                                    _menuButton("Join\nGame", context)
+                                    _menuButton("New\nRoulette", context, NewRoulette()),
+                                    _menuButton("New\nFlip", context, Profile()),
+                                    _menuButton("Join\nGame", context, Profile())
                                   ],
                                   ),
                               ),
@@ -66,7 +67,7 @@ class Menu extends StatelessWidget {
     );
   }
 
-Widget _menuButton(String texto, BuildContext context) {
+Widget _menuButton(String texto, BuildContext context, Widget widgetToStack) {
     return Container(
       child: Container(
         margin: const EdgeInsets.only(bottom: 10.0),
@@ -80,7 +81,7 @@ Widget _menuButton(String texto, BuildContext context) {
           ),
           child: FlatButton(
             onPressed: () =>  {
-            Navigator.of(context).push(_createRoute())
+            Navigator.of(context).push(_createRoute(widgetToStack))
           },
             color: Colors.white,
             child: Container(
@@ -98,11 +99,9 @@ Widget _menuButton(String texto, BuildContext context) {
     );
   }
 
-}
-
-Route _createRoute() {
+  Route _createRoute(Widget widgetToStack) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => NewRoulette(),
+    pageBuilder: (context, animation, secondaryAnimation) => widgetToStack,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = Offset(1.0, 0.0);
       var end = Offset.zero;
@@ -116,6 +115,7 @@ Route _createRoute() {
       );
     },
   );
+}
 }
 
 

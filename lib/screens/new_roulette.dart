@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../utilities/constants.dart';
-
-//TODO: Individual widgets for stuff in the return statement
+import '../widgets/flipItInput.dart';
+import '../widgets/flipitButton.dart';
 
 class NewRoulette extends StatelessWidget {
   @override
@@ -57,19 +56,7 @@ class NewRoulette extends StatelessWidget {
                                   width: 250.0,
                                   decoration: cOptionInputDecoration,
                                   margin: const EdgeInsets.only(bottom: 30.0),
-                                  child: TextField(
-                                    // maxLength: 2, Muestra un contador de cuantos cáracteres faltan y eso es bueno. No sé como quitarlo ¯\(°_o)/¯
-                                    // maxLengthEnforced: true
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    showCursor: false,
-                                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none, 
-                                      hintText: '0-8',
-                                      contentPadding: const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 30),
-                                      ),
-                                    ),
+                                  child: flipItInput('0-8')
                                 ),
                                 Container(
                                   alignment: Alignment.center,
@@ -85,45 +72,15 @@ class NewRoulette extends StatelessWidget {
                                   width: 250,
                                   decoration: cOptionInputDecoration,
                                   margin: const EdgeInsets.only(bottom: 30.0),
-                                  child: TextField(
-                                    // maxLength: 2, Muestra un contador de cuantos cáracteres faltan y eso nes bueno. No sé como quitarlo ¯\(°_o)/¯
-                                    // maxLengthEnforced: true
-                                    textAlign: TextAlign.center,
-                                    showCursor: false,
-                                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none, 
-                                      hintText: 'ABC12',
-                                      contentPadding: const EdgeInsets.only(top: 10, bottom: 10, left: 25, right: 30),
-                                      ),
-                                  ),
+                                  child: flipItInput('ABC12'),
                                 ),
                               ],
                             ),),
                               Container(
                               alignment: Alignment.bottomRight,
                               margin: const EdgeInsets.only(right: 20.0),
-                              child: Container(
-                                decoration: cButtonDecoration,
-                                child: ButtonTheme(
-                                  height: 53.0,
-                                  minWidth: 114.0,
-                                  padding: EdgeInsets.all(8.0),
-                                  splashColor: Colors.grey[350],
-                                  shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(100.0),
-                                  ),
-                                  child: FlatButton(
-                                    onPressed: () => print("OK"),
-                                    color: Colors.white,
-                                    child: Text(
-                                      "Create",
-                                      style: cLoginButton,
-                                      )
-                                    ),
-                                  ),
-                              ),
-                            )
+                              child: flipItButton('Create', () => print('ok')),
+                              )
                             ]
                               )
                         );
