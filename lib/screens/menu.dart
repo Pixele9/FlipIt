@@ -25,15 +25,31 @@ class Menu extends StatelessWidget {
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               SizedBox(height: 40.0),
-                              Container(
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.only(top: 30.0, bottom: 30.0),
-                                width: MediaQuery.of(context).size.width,
-                                child: Text(
-                                  "Flip It!",
-                                  style: cFlipItStyle,
-                                ), 
-                            ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Container(
+                                    alignment: Alignment.center,
+                                    margin: const EdgeInsets.only(top: 30.0, bottom: 30.0),
+                                    child: Text(
+                                      "Flip It!",
+                                      style: cFlipItStyle,
+                                    ), 
+                                  ),
+                                  InkWell(
+                                    onTap: () => Navigator.of(context).push(_createRoute(Profile())),
+                                    child: Container(
+                                    alignment: Alignment.center,
+                                    width: MediaQuery.of(context).size.width * 0.2,
+                                    
+                                    child: CircleAvatar(
+                                      backgroundImage: AssetImage("assets/prueba.png"),
+                                      radius: 30,
+                                    ), 
+                                  ),
+                                  ), 
+                                ],
+                              ),
                               Container(
                                 height: 500,
                                 width: MediaQuery.of(context).size.width,
@@ -98,8 +114,9 @@ Widget _menuButton(String texto, BuildContext context, Widget widgetToStack) {
       ),
     );
   }
+}
 
-  Route _createRoute(Widget widgetToStack) {
+Route _createRoute(Widget widgetToStack) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => widgetToStack,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -115,7 +132,6 @@ Widget _menuButton(String texto, BuildContext context, Widget widgetToStack) {
       );
     },
   );
-}
 }
 
 
