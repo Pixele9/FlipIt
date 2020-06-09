@@ -1,10 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../utilities/constants.dart';
 import './new_roulette.dart';
 import './profile.dart';
 
+import '../utilities/authentication.dart';
+
 class Menu extends StatelessWidget {
+  
+  // StreamController lets other widgets write/read the state of a class, in this case FlipItAuthentication
+  final StreamController<FlipItAuthentication> authenticationController;
+  Menu(this.authenticationController);
+
+  logout() async{
+    authenticationController.add(FlipItAuthentication.initialState());
+  }
+
+
   @override
   Widget build(BuildContext context) {
       //Scaffold es la base de MaterialDesign de la ruta (pantalla)

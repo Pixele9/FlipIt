@@ -1,19 +1,32 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../utilities/constants.dart';
 import './register.dart';
-import './menu.dart';
+import '../utilities/authentication.dart';
 
 const bgColor = const Color(0xFF008CFA);
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPage extends StatelessWidget {
+  // StreamController lets other widgets write/read the state of a class, in this case FlipItAuthentication
+  final StreamController<FlipItAuthentication> authenticationController;
+  LoginPage(this.authenticationController);
 
-  Widget _registerMessageButton() {
+  login() async{
+    authenticationController.add(FlipItAuthentication.loggedInState());
+  }
+
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+  }
+
+  Widget _registerMessageButton(BuildContext context) {
     return Container(
       // alignment: Alignment.bottomCenter,
       child: FlatButton(
@@ -29,8 +42,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _loginButton() {
-    return Container(
+  Widget _loginButton(BuildContext context) {
+    return Container(        
       alignment: Alignment.centerRight,
       child: Container(
         decoration: cButtonDecoration,
@@ -43,10 +56,17 @@ class _LoginPageState extends State<LoginPage> {
             borderRadius: new BorderRadius.circular(100.0),
           ),
           child: FlatButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Menu()),
-            ),
+            onPressed: () {
+              if((usernameController.text == passwordController.text) && usernameController.text != '' && passwordController.text != ''){
+                login();
+              } else {
+                final snackBar = SnackBar(
+                  content: Text('Incorrect Username or Password')
+                );
+
+                Scaffold.of(context).showSnackBar(snackBar);
+              }
+            },
             color: Colors.white,
             child: Text(
               "Login",
@@ -76,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
               contentPadding: const EdgeInsets.only(left: 25, right: 30),
               hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w200)
               ),
+            controller: usernameController,
           ),
         )
       ],
@@ -98,6 +119,7 @@ class _LoginPageState extends State<LoginPage> {
               hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
               contentPadding: const EdgeInsets.only(left: 25, right: 30),
               ),
+            controller: passwordController,
           ),
         )
       ],
@@ -106,8 +128,11 @@ class _LoginPageState extends State<LoginPage> {
   
   @override
   Widget build(BuildContext context) {
+    // https://api.flutter.dev/flutter/material/Scaffold/of.html
     return Scaffold(
-      body: Stack(
+      body: Builder(
+        builder: (BuildContext context){
+          return Stack(
         children: <Widget>[
           Container(
             height: double.infinity,
@@ -130,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 30.0,),
                   _passwordInput(),
                   SizedBox(height: 15.0,),
-                  _loginButton(),
+                  _loginButton(context),
                   // SizedBox(height: 15.0,),
                   // _registerMessageButton()
                 ],
@@ -150,10 +175,13 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: _registerMessageButton(),
+              child: _registerMessageButton(context),
             )
           ),
-      ],)
+      ],
+      );
+      }
+        )
     );
   }
 }

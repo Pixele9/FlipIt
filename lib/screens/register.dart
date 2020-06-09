@@ -27,10 +27,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _registerMessageButton() {
     return Container(
-      // alignment: Alignment.bottomCenter,
       child: FlatButton(
         onPressed: () => {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()))
+          Navigator.pop(context)
         },
         padding: EdgeInsets.only(right: 0.0),
         child: Text(
@@ -106,7 +105,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       _registerButton(),
                     ],
                   ),
-                 _decorImage(),
                   Container(
                     child: Align(
                       alignment: Alignment.bottomCenter,
