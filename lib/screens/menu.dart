@@ -14,11 +14,6 @@ class Menu extends StatelessWidget {
   final StreamController<FlipItAuthentication> authenticationController;
   Menu(this.authenticationController);
 
-  logout() async{
-    authenticationController.add(FlipItAuthentication.initialState());
-  }
-
-
   @override
   Widget build(BuildContext context) {
       //Scaffold es la base de MaterialDesign de la ruta (pantalla)
@@ -51,7 +46,7 @@ class Menu extends StatelessWidget {
                                     ), 
                                   ),
                                   InkWell(
-                                    onTap: () => Navigator.of(context).push(_createRoute(Profile())),
+                                    onTap: () => Navigator.of(context).push(_createRoute(Profile(authenticationController))),
                                     child: Container(
                                     alignment: Alignment.center,
                                     width: MediaQuery.of(context).size.width * 0.2,
@@ -73,8 +68,8 @@ class Menu extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     _menuButton("New\nRoulette", context, NewRoulette()),
-                                    _menuButton("New\nFlip", context, Profile()),
-                                    _menuButton("Join\nGame", context, Profile())
+                                    _menuButton("New\nFlip", context, Profile(authenticationController)),
+                                    _menuButton("Join\nGame", context, Profile(authenticationController))
                                   ],
                                   ),
                               ),

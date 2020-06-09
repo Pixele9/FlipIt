@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
+import '../utilities/authentication.dart';
+import '../widgets/flipitButton.dart';
+import 'dart:async';
 
 class Profile extends StatefulWidget {
+  // StreamController lets other widgets write/read the state of a class, in this case FlipItAuthentication
+  final StreamController<FlipItAuthentication> authenticationController;
+  Profile(this.authenticationController);
+
+
   @override
-  _ProfileState createState() => new _ProfileState();
+  _ProfileState createState() => new _ProfileState(authenticationController);
  }
 
 class _ProfileState extends State<Profile> {
+  final StreamController<FlipItAuthentication> authenticationController;
+  _ProfileState(this.authenticationController);
+
+    void logout() async{
+      authenticationController.add(FlipItAuthentication.initialState());
+      Navigator.pop(context);
+    }
+
   //DATA
   var white = Colors.white;
   var data = ["Name","Mail","Password"];
@@ -110,6 +126,7 @@ class _ProfileState extends State<Profile> {
       //Scaffold es la base de MaterialDesign de la ruta (pantalla)
       return Scaffold(
           backgroundColor: primaryColor,
+          appBar: AppBar(),
           //Body representa el body de la ruta
           body: Align(
           //Esta propiedad de la widget Align alinea todo el contenido en la parte superior y al centro 
@@ -134,29 +151,35 @@ class _ProfileState extends State<Profile> {
                                   style: cFlipItStyle,
                                 ),
                                  
-                            ),
-                            Container(
-                              height: 130,
-                              width: 110,
-                              child: ListView(
-                              children: <Widget>[
-                                CircleAvatar(
-                                  backgroundImage: AssetImage(profilePictureURL),
-                                  radius: 53,
-                               ),
-                              ],
                               ),
-                            ),
                               Container(
-                                height: 500,
+                                height: 130,
+                                width: 110,
+                                child: ListView(
+                                children: <Widget>[
+                                  CircleAvatar(
+                                    backgroundImage: AssetImage(profilePictureURL),
+                                    radius: 53,
+                                ),
+                                ],
+                                ),
+                              ),
+                              Container(       
                                 width: MediaQuery.of(context).size.width,
+                                height: 300,
                                 child: ListView(
                                   children: <Widget>[
                                     getItem(Icon(Icons.person, color: white, size: 30,), 'Name:', name,0),
                                     getItem(Icon(Icons.mail, color: white, size: 30,), 'Mail:', mail,1),
                                     getItem(Icon(Icons.lock, color: white, size: 30,), 'Password:','*********',2),
-                                    info
+                                    info,
                                   ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: 200,
+                                child: Container(
+                                  child: flipItButton('Logout', () => logout())
                                 ),
                               ),
                             ]

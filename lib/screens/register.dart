@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../utilities/constants.dart';
-import './login.dart';
 
 const bgColor = const Color(0xFF008CFA);
 
