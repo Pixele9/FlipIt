@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'channels',
     'apps.users',
 ]
+
+ASGI_APPLICATION = "flipItBack.routing.application"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
