@@ -25,8 +25,8 @@ class _ProfileState extends State<Profile> {
 
   //DATA
   var white = Colors.white;
-  var data = ["Name","Mail","Password"];
-  var name = "José Miguel Ángel Nuñéz Pérez";
+  var data = ["Username","Mail","Password"];
+  var username = "ejemploUsername";
   var mail = "jose_mike_a.n.p@correo.com";
   var password = "";
   var profilePictureURL = "assets/prueba.png";
@@ -35,7 +35,7 @@ class _ProfileState extends State<Profile> {
 
   void onChanged(String option, String value){
     if (value.isNotEmpty) {
-      option=="Name"?setState(() {name = value;}): option == "Mail"? setState(() {mail = value;}):setState(() {password = value;});
+      option=="Username"?setState(() {username = value;}): option == "Mail"? setState(() {mail = value;}):setState(() {password = value;});
       clear();
       confirmation(option);
     }else{
@@ -169,7 +169,7 @@ class _ProfileState extends State<Profile> {
                                 height: 300,
                                 child: ListView(
                                   children: <Widget>[
-                                    getItem(Icon(Icons.person, color: white, size: 30,), 'Name:', name,0),
+                                    getItem(Icon(Icons.person, color: white, size: 30,), 'Username:', username,0),
                                     getItem(Icon(Icons.mail, color: white, size: 30,), 'Mail:', mail,1),
                                     getItem(Icon(Icons.lock, color: white, size: 30,), 'Password:','*********',2),
                                     info,

@@ -1,10 +1,9 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-
-import '../utilities/constants.dart';
-import './register.dart';
 import '../utilities/authentication.dart';
+import 'package:flutter/material.dart';
+import '../utilities/constants.dart';
+import 'package:http/http.dart';
+import './register.dart';
+import 'dart:async';
 
 const bgColor = const Color(0xFF008CFA);
 
@@ -56,9 +55,23 @@ class LoginPage extends StatelessWidget {
             borderRadius: new BorderRadius.circular(100.0),
           ),
           child: FlatButton(
-            onPressed: () {
-              if((usernameController.text == passwordController.text)){
-                login();
+            onPressed: () async {
+              if(usernameController.text != '' && passwordController.text  != ''){
+                print("username: - ${usernameController.text}");
+                print("password: - ${passwordController.text}");
+
+                String url = 'http://192.168.0.5:8000/login/';
+                Map<String, String> headers = {"Content-type": "application/json"};
+                String jsonData = '{"username": "' + usernameController.text + '", "password": "' + passwordController.text + '"}';
+
+                Response response = await post(url, headers: headers, body: jsonData);
+                int statusCode = response.statusCode;
+                print("Response: - $statusCode");
+                print("Response: - ${response.body}");
+
+                if (statusCode == 200){
+                  login();
+                }
               } else {
                 final snackBar = SnackBar(
                   content: Text('Incorrect Username or Password')

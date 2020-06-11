@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 import '../screens/login.dart';
+import 'package:http/http.dart';
 
 const bgColor = const Color(0xFF008CFA);
 
@@ -10,14 +11,14 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final nameController = TextEditingController();
+  final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
 
 
   void dispose() {
-    nameController.dispose();
+    usernameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmController.dispose();
@@ -66,9 +67,18 @@ class _RegisterPageState extends State<RegisterPage> {
             borderRadius: new BorderRadius.circular(100.0),
           ),
           child: FlatButton(
-            onPressed: () {
-          if(nameController.text != '' && passwordController.text != '' && emailController.text != '' && (passwordController.text == confirmController.text)){
-                // Aquí va código para realizar el registro con el back-end :)
+            onPressed: () async {
+          if(usernameController.text != '' && passwordController.text != '' && emailController.text != '' && (passwordController.text == confirmController.text)){
+                
+             String url = 'http://192.168.0.5:8000/signup/';
+            Map<String, String> headers = {"Content-type": "application/json"};
+            String jsonData = '{"username": "' + usernameController.text + '", "email": "' + emailController.text + '", "password": "' + passwordController.text + '"}';
+
+            Response response = await post(url, headers: headers, body: jsonData);
+            int statusCode = response.statusCode;
+            print("Response: - $statusCode");
+            print("Response: - ${response.body}");
+
                 final snackBar = SnackBar(
                   content: Text('Registration successful!'),
                   action: SnackBarAction(
@@ -127,7 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: <Widget>[
                         Text("Sign Up", style: cTitleStyle,),
                         SizedBox(height: 10.0,),
-                        FormInput('Name', false, nameController),
+                        FormInput('Username', false, usernameController),
                         SizedBox(height: 20.0,),
                         FormInput('Email', false, emailController),
                         SizedBox(height: 20.0,),
