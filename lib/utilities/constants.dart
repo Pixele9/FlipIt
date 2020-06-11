@@ -118,4 +118,15 @@ final cCancel = GoogleFonts.montserrat(
 final cfont = GoogleFonts.montserrat(
 );
 
+final cStatusTitleStyle = GoogleFonts.montserrat(
+  color: Colors.white,
+  fontWeight: FontWeight.w700,
+  fontSize: 40.0,
+);
+final cStatusStyle = GoogleFonts.montserrat(
+  color: Colors.white,
+  fontWeight: FontWeight.w600,
+  fontSize: 35.0,
+);
+
 Random random = new Random();
