@@ -6,7 +6,7 @@ import '../utilities/constants.dart';
 import './new_roulette.dart';
 import './profile.dart';
 import './join_game.dart';
-import './flip.dart';
+import './newFlip.dart';
 
 import '../utilities/authentication.dart';
 
@@ -70,7 +70,7 @@ class Menu extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     _menuButton("New\nRoulette", context, NewRoulette()),
-                                    _menuButton("New\nFlip", context, Flip()),
+                                    _menuButton("New\nFlip", context, NewFlip()),
                                     _menuButton("Join\nGame", context, JoinGame())
                                   ],
                                   ),
