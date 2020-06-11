@@ -57,7 +57,7 @@ class LoginPage extends StatelessWidget {
           ),
           child: FlatButton(
             onPressed: () {
-              if((usernameController.text == passwordController.text) && usernameController.text != '' && passwordController.text != ''){
+              if((usernameController.text == passwordController.text)){
                 login();
               } else {
                 final snackBar = SnackBar(
@@ -166,10 +166,10 @@ class LoginPage extends StatelessWidget {
             alignment: Alignment(-2.5, 0.9),
             child: Image(
               height: 307,
-              width: 361,
+              width: 290,
               image: AssetImage('assets/standing-6.png'),
               fit: BoxFit.contain,
-              alignment: Alignment.bottomLeft,
+              alignment: Alignment.bottomRight,
             ),
           ),
           Container(
