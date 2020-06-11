@@ -14,18 +14,14 @@ class RouletteOptionsList{
 
 class RouletteOptions extends StatelessWidget {
   
-  final option1Controller = TextEditingController();
-  final option2Controller = TextEditingController();
-  final option3Controller = TextEditingController();
-  final option4Controller = TextEditingController();
-  final option5Controller = TextEditingController();
+  List<TextEditingController> textControllerArray = [TextEditingController(), TextEditingController(), TextEditingController(), TextEditingController(), TextEditingController()];
 
   void dispose() {
-    option1Controller.dispose();
-    option2Controller.dispose();
-    option3Controller.dispose();
-    option4Controller.dispose();
-    option5Controller.dispose();
+    textControllerArray[0].dispose();
+    textControllerArray[1].dispose();
+    textControllerArray[2].dispose();
+    textControllerArray[3].dispose();
+    textControllerArray[4].dispose();
   }
 
   @override
@@ -72,25 +68,36 @@ class RouletteOptions extends StatelessWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  rouletteOption('1', option1Controller),
-                                  rouletteOption('2', option2Controller),
-                                  rouletteOption('3', option3Controller),
-                                  rouletteOption('4', option4Controller),
-                                  rouletteOption('5', option5Controller),
+                                  rouletteOption('1', textControllerArray[0]),
+                                  rouletteOption('2', textControllerArray[1]),
+                                  rouletteOption('3', textControllerArray[2]),
+                                  rouletteOption('4', textControllerArray[3]),
+                                  rouletteOption('5', textControllerArray[4]),
                               ],)
                             ),
                               Container(
                               alignment: Alignment.bottomRight,
                               margin: const EdgeInsets.only(right: 20.0),
                               child: flipItButton('Create', () {
-                                  List<Item> items = [
-                                      Item(option1Controller.text, Colors.accents[0]),
-                                      Item(option2Controller.text, Colors.accents[1]),
-                                      Item(option3Controller.text, Colors.accents[2]),
-                                      Item(option4Controller.text, Colors.accents[3]),
-                                      Item(option5Controller.text, Colors.accents[4]),
-                                    ];
-                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RoulettePage(items)));
+                                  if(textControllerArray[0].text != '' && textControllerArray[1].text != ''){
+                                    int colorCounter = 0;
+                                    List<Item> userOptions = [];
+
+                                    textControllerArray.forEach((item){
+                                      if(item.text != ''){
+                                        userOptions.add(Item(item.text, Colors.accents[colorCounter]));
+                                      }
+                                      colorCounter++;
+                                    });
+
+                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RoulettePage(userOptions)));
+                                  } else {
+                                    final snackBar = SnackBar(
+                                    content: Text('Please enter at least two options')
+                                    ); 
+
+                                    Scaffold.of(context).showSnackBar(snackBar);
+                                  }
                               }),
                               )
                             ]
