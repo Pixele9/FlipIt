@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 import '../widgets/flipItInput.dart';
 import '../widgets/flipitButton.dart';
-import './roulette.dart';
-import '../utilities/authentication.dart';
+import './roulette_options.dart';
 
 class NewRoulette extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
 
@@ -81,8 +81,8 @@ class NewRoulette extends StatelessWidget {
                               Container(
                               alignment: Alignment.bottomRight,
                               margin: const EdgeInsets.only(right: 20.0),
-                              child: flipItButton('Create', () => {
-                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RoulettePage()))
+                              child: flipItButton('Next', () => {
+                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RouletteOptions()))
                               }),
                               )
                             ]

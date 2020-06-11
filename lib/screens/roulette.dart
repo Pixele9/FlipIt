@@ -1,28 +1,30 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../utilities/board_view.dart';
+import '../screens/roulette_options.dart';
 import '../utilities/constants.dart';
 import '../utilities/items.dart';
 import 'dart:math';
 
 class RoulettePage extends StatefulWidget {
+  final List<Item> _items;
+  RoulettePage(this._items);  
+
   @override
   State<StatefulWidget> createState() {
-    return _RoulettePageState();
+    return _RoulettePageState(_items);
   }
 }
 
 class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderStateMixin {
-
+  _RoulettePageState(this._items);  
   // final TextEditingController optionController = new TextEditingController();
   // final GlobalKey<FormState> _keyDialogForm = new GlobalKey<FormState>();
   double _angle = 0;
   double _current = 0;
   AnimationController _ctrl;
   Animation _ani;
-  List<Item> _items = [
-    Item(" ", Colors.accents[0]),
-  ];
+  final List<Item> _items;
 
   @override
   void initState() {
