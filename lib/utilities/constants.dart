@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:math';
 
 const primaryColor = const Color(0xFF008CFA);
 const secondaryColor = const Color(0xFF006DC3);
@@ -116,3 +117,5 @@ final cCancel = GoogleFonts.montserrat(
 
 final cfont = GoogleFonts.montserrat(
 );
+
+Random random = new Random();
