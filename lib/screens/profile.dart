@@ -7,27 +7,32 @@ import 'dart:async';
 class Profile extends StatefulWidget {
   // StreamController lets other widgets write/read the state of a class, in this case FlipItAuthentication
   final StreamController<FlipItAuthentication> authenticationController;
-  Profile(this.authenticationController);
+  final String id;
+  final String username;
+  final String mail;
 
+  Profile(this.authenticationController, {this.id = '', this.username = '', this.mail = ''});
 
   @override
-  _ProfileState createState() => new _ProfileState(authenticationController);
- }
+  _ProfileState createState() {
+    return _ProfileState(authenticationController, id, username, mail);
+  } 
+}
 
 class _ProfileState extends State<Profile> {
   final StreamController<FlipItAuthentication> authenticationController;
-  _ProfileState(this.authenticationController);
+  String id;
+  String username;
+  String mail;
+  _ProfileState(this.authenticationController, this.id, this.username, this.mail);
 
-    void logout() async{
-      authenticationController.add(FlipItAuthentication.initialState());
-      Navigator.pop(context);
-    }
-
+  void logout() async{
+    authenticationController.add(FlipItAuthentication.initialState());
+    Navigator.pop(context);
+  }
   //DATA
   var white = Colors.white;
   var data = ["Username","Mail","Password"];
-  var username = "ejemploUsername";
-  var mail = "jose_mike_a.n.p@correo.com";
   var password = "";
   var profilePictureURL = "assets/prueba.png";
   final TextEditingController controller = TextEditingController();
@@ -123,6 +128,9 @@ class _ProfileState extends State<Profile> {
   
   @override
   Widget build(BuildContext context) {
+      print("id - $id");
+      print("username - $username");
+      print("mail - $mail");
       //Scaffold es la base de MaterialDesign de la ruta (pantalla)
       return Scaffold(
           backgroundColor: primaryColor,
@@ -171,7 +179,7 @@ class _ProfileState extends State<Profile> {
                                   children: <Widget>[
                                     getItem(Icon(Icons.person, color: white, size: 30,), 'Username:', username,0),
                                     getItem(Icon(Icons.mail, color: white, size: 30,), 'Mail:', mail,1),
-                                    getItem(Icon(Icons.lock, color: white, size: 30,), 'Password:','*********',2),
+                                    // getItem(Icon(Icons.lock, color: white, size: 30,), 'Password:','*********',2),
                                     info,
                                   ],
                                 ),

@@ -1,9 +1,11 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import '../utilities/authentication.dart';
 import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 import 'package:http/http.dart';
 import './register.dart';
 import 'dart:async';
+import 'dart:convert';
 
 const bgColor = const Color(0xFF008CFA);
 
@@ -66,15 +68,26 @@ class LoginPage extends StatelessWidget {
 
                 Response response = await post(url, headers: headers, body: jsonData);
                 int statusCode = response.statusCode;
-                print("Response: - $statusCode");
-                print("Response: - ${response.body}");
+                
+                var data = json.decode(response.body);
+                final prefs = await SharedPreferences.getInstance();
+
+                prefs.setString('id', data['user'].toString());
+                prefs.setString('username', data['username']);
+                prefs.setString('email', data['email']);
 
                 if (statusCode == 200){
                   login();
-                }
+                } else {
+                  final snackBar = SnackBar(
+                    content: Text('Incorrect Username or Password')
+                  );
+
+                  Scaffold.of(context).showSnackBar(snackBar);
+                } 
               } else {
                 final snackBar = SnackBar(
-                  content: Text('Incorrect Username or Password')
+                  content: Text('Complete the fields, please')
                 );
 
                 Scaffold.of(context).showSnackBar(snackBar);

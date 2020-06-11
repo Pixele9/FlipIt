@@ -1,8 +1,7 @@
 import 'dart:async';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flip_it/screens/flip.dart';
 import 'package:flutter/material.dart';
-
 import '../utilities/constants.dart';
 import './new_roulette.dart';
 import './profile.dart';
@@ -49,7 +48,14 @@ class Menu extends StatelessWidget {
                                     ), 
                                   ),
                                   InkWell(
-                                    onTap: () => Navigator.of(context).push(_createRoute(Profile(authenticationController))),
+                                    onTap: () async {
+                                      final prefs = await SharedPreferences.getInstance();
+                                      var id = prefs.getString('id');
+                                      var username = prefs.getString('username');
+                                      var mail = prefs.getString('email');
+
+                                      Navigator.of(context).push(_createRoute(Profile(authenticationController, id:id, username:username, mail:mail)));
+                                    },
                                     child: Container(
                                     alignment: Alignment.center,
                                     width: MediaQuery.of(context).size.width * 0.2,

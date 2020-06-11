@@ -1,4 +1,6 @@
+from rest_framework import viewsets
 from django.http import JsonResponse
+from .serializers import UserSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import render, redirect
@@ -30,7 +32,7 @@ def logIn(request):
         return Response({"Error":"Usuario o contraseña incorrectos", "status":"no"}, status=HTTP_400_BAD_REQUEST)
 
     login(request, user)
-    return Response({"user":user.id, "username":user.username, "status":"ok"}, status=HTTP_200_OK)
+    return Response({"user":user.id, "username":user.username, "email":user.email, "status":"ok"}, status=HTTP_200_OK)
 
 @csrf_exempt
 @api_view(["POST"],)
@@ -54,3 +56,8 @@ def signUp(request):
 def logOut(request):
     logout(request)
     return redirect('/')
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = AllowAny
