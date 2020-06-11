@@ -58,7 +58,7 @@ class RouletteOptions extends StatelessWidget {
                                     alignment: Alignment.center,
                                     margin: const EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
                                     child: Text(
-                                      "Write 4 options for the roulette to choose!",
+                                      "Write up to 5 options for the roulette to choose!",
                                       textAlign: TextAlign.center,
                                       style: cLabelStyle,
                                     ), 
