@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flip_it/screens/flip.dart';
 import 'package:flutter/material.dart';
 
 import '../utilities/constants.dart';
@@ -71,7 +72,8 @@ class Menu extends StatelessWidget {
                                   children: <Widget>[
                                     _menuButton("New\nRoulette", context, NewRoulette()),
                                     _menuButton("New\nFlip", context, NewFlip()),
-                                    _menuButton("Join\nGame", context, JoinGame())
+                                    _menuButton("Join\nGame", context, JoinGame()),
+                                    _menuButton("Join\nGame", context, MyHomePage())
                                   ],
                                   ),
                               ),
