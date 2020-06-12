@@ -58,41 +58,40 @@ class LoginPage extends StatelessWidget {
           ),
           child: FlatButton(
             onPressed: () async {
-              login();
-              // if(usernameController.text != '' && passwordController.text  != ''){
-              //   print("username: - ${usernameController.text}");
-              //   print("password: - ${passwordController.text}");
+              if(usernameController.text != '' && passwordController.text  != ''){
+                print("username: - ${usernameController.text}");
+                print("password: - ${passwordController.text}");
 
-              //   String url = 'http://192.168.1.86:8000/login/';
-              //   Map<String, String> headers = {"Content-type": "application/json"};
-              //   String jsonData = '{"username": "' + usernameController.text + '", "password": "' + passwordController.text + '"}';
+                String url = 'http://192.168.1.86:8000/login/';
+                Map<String, String> headers = {"Content-type": "application/json"};
+                String jsonData = '{"username": "' + usernameController.text + '", "password": "' + passwordController.text + '"}';
 
-              //   Response response = await post(url, headers: headers, body: jsonData);
-              //   int statusCode = response.statusCode;
+                Response response = await post(url, headers: headers, body: jsonData);
+                int statusCode = response.statusCode;
                 
-              //   var data = json.decode(response.body);
-              //   final prefs = await SharedPreferences.getInstance();
+                var data = json.decode(response.body);
+                final prefs = await SharedPreferences.getInstance();
 
-              //   prefs.setString('id', data['user'].toString());
-              //   prefs.setString('username', data['username']);
-              //   prefs.setString('email', data['email']);
+                prefs.setString('id', data['user'].toString());
+                prefs.setString('username', data['username']);
+                prefs.setString('email', data['email']);
 
-              //   if (statusCode == 200){
-              //     login();
-              //   } else {
-              //     final snackBar = SnackBar(
-              //       content: Text('Incorrect Username or Password')
-              //     );
+                if (statusCode == 200){
+                  login();
+                } else {
+                  final snackBar = SnackBar(
+                    content: Text('Incorrect Username or Password')
+                  );
 
-              //     Scaffold.of(context).showSnackBar(snackBar);
-              //   } 
-              // } else {
-              //   final snackBar = SnackBar(
-              //     content: Text('Complete the fields, please')
-              //   );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                } 
+              } else {
+                final snackBar = SnackBar(
+                  content: Text('Complete the fields, please')
+                );
 
-              //   Scaffold.of(context).showSnackBar(snackBar);
-              // }
+                Scaffold.of(context).showSnackBar(snackBar);
+              }
             },
             color: Colors.white,
             child: Text(
