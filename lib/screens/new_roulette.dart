@@ -3,6 +3,7 @@ import '../utilities/constants.dart';
 import '../widgets/flipItInput.dart';
 import '../widgets/flipitButton.dart';
 import './roulette_options.dart';
+import '../utilities/ensurevisible.dart';
 
 class NewRoulette extends StatelessWidget {
 
@@ -19,7 +20,8 @@ class NewRoulette extends StatelessWidget {
                     return Container(
                         width: MediaQuery.of(context).size.width,
                         color: primaryColor,
-                        child: Column(
+                        child: SingleChildScrollView(
+                            child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.max,
@@ -34,7 +36,7 @@ class NewRoulette extends StatelessWidget {
                                 ), 
                             ), 
                             SizedBox(
-                              height: 500,
+                              height: 400,
                               child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -78,15 +80,18 @@ class NewRoulette extends StatelessWidget {
                                 ),
                               ],
                             ),),
-                              Container(
+                            SizedBox(
+                              height: 100,
+                              child: Container(
                               alignment: Alignment.bottomRight,
                               margin: const EdgeInsets.only(right: 20.0),
                               child: flipItButton('Next', () => {
                                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RouletteOptions()))
                               }),
-                              )
+                              ))
                             ]
-                              )
+                              ),
+                          ),
                         );
             }),
         )

@@ -37,18 +37,19 @@ class RouletteOptions extends StatelessWidget {
                     return Container(
                         width: MediaQuery.of(context).size.width,
                         color: primaryColor,
-                        child: Column(
+                        child: SingleChildScrollView(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                             Container(
                                 alignment: Alignment.center,
-                                margin: const EdgeInsets.only(top: 30.0),
                                 width: MediaQuery.of(context).size.width,
                                 child: Text(
                                   "Roulette Options",
                                   style: cTitleViews,
+                                  textAlign: TextAlign.center,
                                 ), 
                             ), 
                             Container(
@@ -65,7 +66,7 @@ class RouletteOptions extends StatelessWidget {
                                   ),
                             ),
                             SizedBox(
-                              child: Column(
+                                child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   rouletteOption('1', textControllerArray[0]),
@@ -101,7 +102,8 @@ class RouletteOptions extends StatelessWidget {
                               }),
                               )
                             ]
-                              )
+                      )
+                        )
                         );
             }),
         )
@@ -117,8 +119,9 @@ Widget rouletteOption(String optionNumber, TextEditingController optionControlle
       Container(
         alignment: Alignment.center,
         width: 300,
+        height: 70,
         decoration: cOptionInputDecoration,
-        margin: const EdgeInsets.only(bottom: 20.0, left: 10.0, right: 10.0),
+        margin: const EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
         child: flipItInput('Option '+optionNumber, optionController),
     )
     ],);
