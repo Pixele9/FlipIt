@@ -3,6 +3,7 @@ import '../utilities/constants.dart';
 import '../widgets/flipItInput.dart';
 import '../widgets/flipitButton.dart';
 import './roulette_options.dart';
+import '../utilities/ensurevisible.dart';
 
 class NewRoulette extends StatelessWidget {
 

@@ -37,9 +37,10 @@ class RouletteOptions extends StatelessWidget {
                     return Container(
                         width: MediaQuery.of(context).size.width,
                         color: primaryColor,
-                        child: Column(
+                        child: SingleChildScrollView(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                             Container(
@@ -48,6 +49,7 @@ class RouletteOptions extends StatelessWidget {
                                 child: Text(
                                   "Roulette Options",
                                   style: cTitleViews,
+                                  textAlign: TextAlign.center,
                                 ), 
                             ), 
                             Container(
@@ -64,7 +66,6 @@ class RouletteOptions extends StatelessWidget {
                                   ),
                             ),
                             SizedBox(
-                              child: SingleChildScrollView(
                                 child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -74,7 +75,6 @@ class RouletteOptions extends StatelessWidget {
                                   rouletteOption('4', textControllerArray[3]),
                                   rouletteOption('5', textControllerArray[4]),
                               ],)
-                              ) 
                             ),
                               Container(
                               alignment: Alignment.bottomRight,
@@ -102,7 +102,8 @@ class RouletteOptions extends StatelessWidget {
                               }),
                               )
                             ]
-                              )
+                      )
+                        )
                         );
             }),
         )
