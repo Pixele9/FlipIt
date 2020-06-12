@@ -190,10 +190,10 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           Container(
-            alignment: Alignment(-2.5, 0.9),
+            alignment: Alignment(-1.7, 0.9),
             child: Image(
-              height: 307,
-              width: 290,
+              height: 250,
+              width: 250,
               image: AssetImage('assets/standing-6.png'),
               fit: BoxFit.contain,
               alignment: Alignment.bottomRight,

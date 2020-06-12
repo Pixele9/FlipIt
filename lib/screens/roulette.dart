@@ -39,7 +39,7 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
   Widget build(BuildContext context) {
 
     return Scaffold(
-          backgroundColor: primaryColor,
+          backgroundColor: Color(0xFFFFFFFF),
           appBar: AppBar(),
           body: Container(
             child: AnimatedBuilder(
