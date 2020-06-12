@@ -30,6 +30,12 @@ ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'users.User'
 AUTHENTICATION_BACKENDS = ['apps.users.auth.CustomBackEnd']
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition

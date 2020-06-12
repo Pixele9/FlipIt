@@ -1,3 +1,5 @@
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 import '../widgets/flipItInput.dart';
@@ -7,14 +9,16 @@ import '../utilities/items.dart';
 
 class RouletteOptionsList{
   final List<String> options;
+  String code;
 
-  RouletteOptionsList(this.options);
+  RouletteOptionsList(this.options, this.code);
 }
 
 
 class RouletteOptions extends StatelessWidget {
-  
   List<TextEditingController> textControllerArray = [TextEditingController(), TextEditingController(), TextEditingController(), TextEditingController(), TextEditingController()];
+  String code;
+  RouletteOptions(this.code); 
 
   void dispose() {
     textControllerArray[0].dispose();
@@ -91,7 +95,11 @@ class RouletteOptions extends StatelessWidget {
                                       colorCounter++;
                                     });
 
-                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RoulettePage(userOptions)));
+                                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                                        print('ws://192.168.0.5:8000/game/$code');
+                                        return RoulettePage(userOptions, channel: IOWebSocketChannel.connect('wss://echo.websocket.org'));
+                                      }
+                                    ));
                                   } else {
                                     final snackBar = SnackBar(
                                     content: Text('Please enter at least two options')
