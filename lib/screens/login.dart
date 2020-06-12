@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../utilities/authentication.dart';
 import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
+import '../utilities/ensurevisible.dart';
 import 'package:http/http.dart';
 import './register.dart';
 import 'dart:async';
@@ -26,6 +27,9 @@ class LoginPage extends StatelessWidget {
     usernameController.dispose();
     passwordController.dispose();
   }
+
+  FocusNode focusNodeUsername = new FocusNode();
+  FocusNode focusNodePassword = new FocusNode();
 
   Widget _registerMessageButton(BuildContext context) {
     return Container(
@@ -115,7 +119,8 @@ class LoginPage extends StatelessWidget {
           alignment: Alignment.centerLeft,
           decoration: cInputDecoration,
           height: 53.0,
-          child: TextField(
+          child: EnsureVisibleWhenFocused(
+            child: TextField(
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               border: InputBorder.none, 
@@ -124,7 +129,7 @@ class LoginPage extends StatelessWidget {
               hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w200)
               ),
             controller: usernameController,
-          ),
+          ), focusNode: focusNodeUsername)
         )
       ],
     );
@@ -138,7 +143,8 @@ class LoginPage extends StatelessWidget {
           alignment: Alignment.centerLeft,
           decoration: cInputDecoration,
           height: 53.0,
-          child: TextField(
+          child: EnsureVisibleWhenFocused(
+            child: TextField(
             obscureText: true,
             decoration: InputDecoration(
               border: InputBorder.none, 
@@ -147,7 +153,8 @@ class LoginPage extends StatelessWidget {
               contentPadding: const EdgeInsets.only(left: 25, right: 30),
               ),
             controller: passwordController,
-          ),
+          ), 
+            focusNode: focusNodePassword)
         )
       ],
     );
