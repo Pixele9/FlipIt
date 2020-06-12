@@ -48,7 +48,7 @@ class _CoinTossState extends State<CoinToss> with SingleTickerProviderStateMixin
   void initState() {
     super.initState();
 
-    _tossController = AnimationController(vsync: this, duration: Duration(milliseconds: 3000));
+    _tossController = AnimationController(vsync: this, duration: Duration(milliseconds: 2000));
     _tossAnimation = CurvedAnimation(parent: _tossController, curve: Curves.easeInOutQuart); 
 
   }
