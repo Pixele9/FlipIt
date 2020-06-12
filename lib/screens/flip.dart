@@ -4,6 +4,8 @@ import '../widgets/flipItInput.dart';
 import '../widgets/flipitButton.dart';
 import 'dart:math';
 
+// THIS WAS THE TESTING VIEW
+
 // class Flip extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
@@ -32,12 +34,12 @@ import 'dart:math';
 // }
 
 
-class MyHomePage extends StatefulWidget {
+class CoinToss extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _CoinTossState createState() => _CoinTossState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _CoinTossState extends State<CoinToss> with SingleTickerProviderStateMixin {
 
   AnimationController _tossController;
   CurvedAnimation _tossAnimation;
@@ -61,67 +63,45 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   double y = 0;
   double z = 0;
 
-  int random = Random().nextInt(100) + 1;
+  // int random = Random().nextInt(100) + 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flip!"),
+        title: Text("Coin Toss"),
       ),
       body: GestureDetector(
-        onTap: _flipCoinAnimation(),
-        child: Center(
+        onTap: _flipCoinAnimation,
+        child: Container(
           child: AnimatedBuilder(
             animation: _tossController.view, 
             builder: (context, child) {
                 // final _value = _tossAnimation.value;
-                int rand = Random().nextInt(100) + 1;
+                // int rand = Random().nextInt(100) + 1;
                 return Container(
-                  child: _buildCoin(rand),
+                  child: _buildCoin(),
                 );
               },
-            child: Transform(
-              transform: Matrix4(
-                  1,0,0,0,
-                  0,1,0,0,
-                  0,0,1,0,
-                  0,0,0,1,
-              )..setEntry(3, 2, 0.002)..rotateX(x)..rotateY(y)..rotateZ(z),
-              alignment: FractionalOffset.center,
-              // child: GestureDetector(
-              //   onTap: _flipCoinAnimation(),
-              //   // onPanUpdate: (details) {
-              //   //   setState(() {
-              //   //     y = y - details.delta.dx;
-              //   //     x = x + details.delta.dy;
-              //   //   });
-              //   // },
-                
-              //   // child: Container(
-              //   //   color: Colors.red,
-              //   //   height: 200.0,
-              //   //   width: 200.0,
-              //   // ),
-              // ),
-            ),
+            // ),
           ),
         ),
       ),
     );
   }
 
-  _buildCoin(randomValue) {
-    // var rand = Random().nextDouble();
+  _buildCoin() {
+    int randFace = Random().nextInt(90)+10;
     const FRONT = "assets/Heads.png";
     const BACK = "assets/Tails.png";  
     String image(_x) {
       int _t = (-_x ~/ (pi / 2)) % 4;
       return _t == 0 || _t == 3 || _t == 4 ? FRONT : BACK;
     }
+
     double _value = _tossAnimation.value;
-    print("VALUE: " + _value.toString());
+    print("VALUE: $_value");
     double _x = -760 * pi / 180 * _value;
-    double _y = 120 * pi / 180 * _value;
+    double _y = 12 * pi / 180 * _value;
     double _z = 30 * pi / 180 * _value;
     Matrix4 _transform = Matrix4.identity()
       ..setEntry(3, 2, 0.002)
@@ -129,16 +109,31 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       ..rotateY(_y)
       ..rotateZ(_z);
     
-    y = y + random;
-    print(y);
+    Matrix4 _pmat(num pv) {
+        return new Matrix4(
+          1.0, 0.0, 0.0, 0.0, //
+          0.0, 1.0, 0.0, 0.0, //
+          0.0, 0.0, 1.0, pv * 0.001, //
+          0.0, 0.0, 0.0, 1.0,
+        );
+    }
 
+    Matrix4 perspective = _pmat(2.0);
+    print("Random value: $randFace");
     return Center(
-      child: Container(
+      child: Transform(
         // transform: _transform,
+        alignment: FractionalOffset.center,
+        transform: perspective.scaled(1.0, 1.0, 1.0)
+          // ..rotateX(pi - randFace * pi / 180)
+          ..rotateX((randFace - pi) * (pi / 180))
+          ..rotateY(0.0)
+          ..rotateZ(0.0)
+        ,
         child: Image(
-        height: 150,
-        width: 150,
-        image: AssetImage(image(_x)),
+        height: 200,
+        width: 200,
+        image: AssetImage(image(_x + randFace)),
         // fit: BoxFit.contain,
           // alignment: Alignment.bottomLeft,
         ),
@@ -147,9 +142,9 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   }
   
  _flipCoinAnimation() {
-    // print("Touched!");
+    print("Touched!");
     if (!_tossController.isAnimating) {
-      _tossController.forward();
+      _tossController.forward(from: 0.0);
     }
   } 
 

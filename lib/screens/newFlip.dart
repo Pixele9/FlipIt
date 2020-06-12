@@ -27,37 +27,6 @@ class _NewFlipState extends State<NewFlip> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  // static const FRONT = "assets/Heads.png";
-  // static const BACK = "assets/Tails.png";  
-  // String image(_x) {
-  //   int _t = (-_x ~/ (pi / 2)) % 4;
-  //   return _t == 0 || _t == 3 || _t == 4 ? FRONT : BACK;
-  // }
-
-	// @override
-	// Widget build(BuildContext context) {
-	// 	return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text("Flip a Coin!")
-  //     ),
-  //     // backgroundColor: primaryColor,
-  //     body: GestureDetector(
-  //       onTap: _flipCoinAnimation,
-  //       child: Container(
-  //           child: Center(
-  //             child: Image(
-  //               height: 150,
-  //               width: 150,
-  //               image: AssetImage(image(29.26)) ,
-  //               fit: BoxFit.contain,
-  //               alignment: Alignment.bottomLeft,
-  //             ),
-  //           )
-  //       ),
-  //     ),
-  //   );
-	// }
-
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
@@ -106,8 +75,10 @@ class _NewFlipState extends State<NewFlip> with TickerProviderStateMixin {
     print("X: $_x");
     print("Y: $_y");
     print("Z: $_z");
+    
     return Center(
       child: Container(
+        color: Colors.amber,
         transform: _transform,
         child: Image(
         height: 150,
