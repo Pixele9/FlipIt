@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
-import '../utilities/authentication.dart';
-import '../widgets/flipitButton.dart';
-import 'dart:async';
-
 class RouletteStatus extends StatefulWidget {
   @override
   _RouletteStatusState createState() => new _RouletteStatusState();
  }
 class _RouletteStatusState extends State<RouletteStatus> {
   //DATA
-  var white = Colors.white;
   String status = "Cargando...";
   
   @override
@@ -40,12 +35,8 @@ class _RouletteStatusState extends State<RouletteStatus> {
                                         style: cStatusStyle,
                                         )
                                     ]
-                                  )
-                                  
+                                  ) 
                                 )
-                              
-                            
-                        
                     );
             }),
         )
