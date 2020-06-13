@@ -1,25 +1,26 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../utilities/board_view.dart';
-import '../screens/roulette_options.dart';
-import '../utilities/constants.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import '../utilities/items.dart';
 import 'dart:math';
 
 class RoulettePage extends StatefulWidget {
   final List<Item> _items;
-  RoulettePage(this._items);  
+  final WebSocketChannel channel;
+  RoulettePage(this._items, {this.channel});  
 
   @override
   State<StatefulWidget> createState() {
-    return _RoulettePageState(_items);
+    return _RoulettePageState(_items, channel);
   }
 }
 
 class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderStateMixin {
-  _RoulettePageState(this._items);  
+  _RoulettePageState(this._items, this.channel);  
   // final TextEditingController optionController = new TextEditingController();
   // final GlobalKey<FormState> _keyDialogForm = new GlobalKey<FormState>();
+  final WebSocketChannel channel;
   double _angle = 0;
   double _current = 0;
   AnimationController _ctrl;
@@ -29,7 +30,6 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-    // optionController.text = "";
     var _duration = Duration(milliseconds: 5000);
     _ctrl = AnimationController(vsync: this, duration: _duration);
     _ani = CurvedAnimation(parent: _ctrl, curve: Curves.fastLinearToSlowEaseIn);
@@ -53,10 +53,31 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
                       BoardView(items: _items, current: _current, angle: _angle),
                       _buildGo(),
                       _buildResult(_value),
-                      // FlatButton(
-                      //   onPressed: showOptionDialog(), 
-                      //   child: null
-                      // )
+                      StreamBuilder(
+                        stream: widget.channel.stream,
+                        builder: (context, snapshot) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                height: 80,
+                                width: 140,
+                                child: Text(
+                                  snapshot.hasData ? '${snapshot.data}' : '',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1.0,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                )
+                              ),
+                            ),
+                          );
+                        },
+                      )
                     ],
                   );
                 }),
@@ -64,59 +85,18 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
     );
   }
 
-  // showOptionDialog() {
-  //   return showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: Form(
-  //             key: _keyDialogForm,
-  //             child: Column(
-  //               children: <Widget>[
-  //                 TextFormField(
-  //                   decoration: const InputDecoration(
-  //                     icon: Icon(Icons.ac_unit),
-  //                   ),
-  //                   maxLength: 8,
-  //                   textAlign: TextAlign.center,
-  //                   onSaved: (val) {
-  //                     optionController.text = val;
-  //                     setState(() {});
-  //                   },
-  //                   autovalidate: true,
-  //                   validator: (value) {
-  //                     if (value.isEmpty) {
-  //                       return 'Enter the new option';
-  //                     }
+  void _sendMessage({text=''}) {
+    print(widget.channel.sink);
+    if (text != '') {
+      widget.channel.sink.add('{"message": "$text"}');
+    }
+  }
 
-  //                     return null;
-  //                   },
-  //                 )
-  //               ],
-  //             ),
-  //           ),
-  //           actions: <Widget>[
-  //             FlatButton(
-  //               onPressed: () {
-  //                 if (_keyDialogForm.currentState.validate()) {
-  //                   _keyDialogForm.currentState.save();
-
-  //                   Navigator.pop(context);
-  //                 }
-  //               },
-  //               child: Text('Save'),
-  //               color: Colors.blue,
-  //             ),
-  //             FlatButton(
-  //                 onPressed: () {
-  //                   Navigator.pop(context);
-  //                 },
-  //                 child: Text('Cancel')),
-  //           ],
-  //         );
-  //       });
-  // }
-
+  @override
+  void dispose() {
+    widget.channel.sink.close();
+    super.dispose();
+  }
 
   _buildGo() {
     return Material(
@@ -169,7 +149,7 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
           child: Text(
             _text,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 24.0,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.0,

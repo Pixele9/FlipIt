@@ -3,11 +3,17 @@ import '../utilities/constants.dart';
 import '../widgets/flipItInput.dart';
 import '../widgets/flipitButton.dart';
 import './roulette_options.dart';
+import 'dart:core';
+import 'dart:math';
 
 class NewRoulette extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _enabled = false;
+    String _code = _randomString(10);
+    TextEditingController _controller = new TextEditingController();
+    _controller.text = _code;
 
      return Scaffold(
           backgroundColor: primaryColor,
@@ -75,7 +81,23 @@ class NewRoulette extends StatelessWidget {
                                   width: 250,
                                   decoration: cOptionInputDecoration,
                                   margin: const EdgeInsets.only(bottom: 30.0),
-                                  child: flipItInput('ABC12'),
+                                  child: _enabled ?
+                                  new TextFormField(controller: _controller) :
+                                  new FocusScope(
+                                    node: new FocusScopeNode(),
+                                    child: new TextFormField(
+                                      controller: _controller,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      decoration: new InputDecoration(
+                                        hintText: _enabled ? 'Type something' : _code,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),),
@@ -85,7 +107,7 @@ class NewRoulette extends StatelessWidget {
                               alignment: Alignment.bottomRight,
                               margin: const EdgeInsets.only(right: 20.0),
                               child: flipItButton('Next', () => {
-                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RouletteOptions()))
+                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RouletteOptions(_code)))
                               }),
                               ))
                             ]
@@ -97,4 +119,15 @@ class NewRoulette extends StatelessWidget {
     );
 
   }
+
+  String _randomString(int strlen) {
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    Random rnd = new Random(new DateTime.now().millisecondsSinceEpoch);
+    String result = "";
+    for (var i = 0; i < strlen; i++) {
+      result += chars[rnd.nextInt(chars.length)];
+    }
+    return result;
+  }
+
 }

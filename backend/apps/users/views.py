@@ -31,6 +31,7 @@ def logIn(request):
     if not user:
         return Response({"Error":"Usuario o contraseña incorrectos", "status":"no"}, status=HTTP_400_BAD_REQUEST)
 
+    request.session['user'] = user.id
     login(request, user)
     return Response({"user":user.id, "username":user.username, "email":user.email, "status":"ok"}, status=HTTP_200_OK)
 
@@ -53,6 +54,7 @@ def signUp(request):
         return Response({"status":"no"}, status=HTTP_500_INTERNAL_SERVER_ERROR) 
 
 @csrf_exempt
+@permission_classes((AllowAny,))
 def logOut(request):
     logout(request)
     return redirect('/')
