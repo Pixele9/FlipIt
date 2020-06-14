@@ -1,26 +1,29 @@
-import 'dart:ui';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:flutter/material.dart';
 import '../utilities/board_view.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import '../utilities/items.dart';
+import 'dart:convert';
 import 'dart:math';
+import 'dart:ui';
 
 class RoulettePage extends StatefulWidget {
   final List<Item> _items;
-  final WebSocketChannel channel;
-  RoulettePage(this._items, {this.channel});  
+  final String code;
+  RoulettePage(this._items, this.code);  
 
   @override
   State<StatefulWidget> createState() {
-    return _RoulettePageState(_items, channel);
+    return _RoulettePageState(_items, code);
   }
 }
 
 class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderStateMixin {
-  _RoulettePageState(this._items, this.channel);  
+  _RoulettePageState(this._items, this.code);  
   // final TextEditingController optionController = new TextEditingController();
   // final GlobalKey<FormState> _keyDialogForm = new GlobalKey<FormState>();
-  final WebSocketChannel channel;
+  final String code;
+  WebSocketChannel channel;
   double _angle = 0;
   double _current = 0;
   AnimationController _ctrl;
@@ -32,7 +35,12 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
     super.initState();
     var _duration = Duration(milliseconds: 5000);
     _ctrl = AnimationController(vsync: this, duration: _duration);
+
+    _ctrl.addStatusListener(_checkEnded);
+
     _ani = CurvedAnimation(parent: _ctrl, curve: Curves.fastLinearToSlowEaseIn);
+    channel = IOWebSocketChannel.connect('ws://192.168.0.5:8000/game/$code');
+    _sendMessage(text:'{"text": "Connected", "source": "host", "type": "connection"}');
   }
 
   @override
@@ -54,28 +62,41 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
                       _buildGo(),
                       _buildResult(_value),
                       StreamBuilder(
-                        stream: widget.channel.stream,
+                        stream: this.channel.stream,
                         builder: (context, snapshot) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                height: 80,
-                                width: 140,
-                                child: Text(
-                                  snapshot.hasData ? '${snapshot.data}' : '',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.0,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                )
+
+                          // Snapshot processing
+                          Map<String, dynamic> data = jsonDecode(snapshot.data);
+                          data = data['message'];
+                          String text = data['text']; 
+                          String source = data['source']; 
+                          String type = data['type'];
+
+                          if (type != "connection" && source != "host"){
+                            return Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.0),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  height: 80,
+                                  width: 140,
+                                  child: Text(
+                                    snapshot.hasData ? '$text' : '',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 24.0,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1.0,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  )
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          } else {
+                            return Container(height: 0, width: 0,);
+                          }
+
                         },
                       )
                     ],
@@ -86,15 +107,14 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
   }
 
   void _sendMessage({text=''}) {
-    print(widget.channel.sink);
     if (text != '') {
-      widget.channel.sink.add('{"message": "$text"}');
+      channel.sink.add('{"message": $text}');
     }
   }
 
   @override
   void dispose() {
-    widget.channel.sink.close();
+    channel.sink.close();
     super.dispose();
   }
 
@@ -113,9 +133,14 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
         ),
-        onTap: _animation,
+        onTap: _caller,
       ),
     );
+  }
+
+  _caller() {
+    _animation();
+    _sendMessage(text:'{"text": "Spinning...", "source": "host", "type": "start"}');
   }
 
   _animation() {
@@ -139,6 +164,7 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
     var _index = _calIndex(_value * _angle + _current);
     String _text = _items[_index].text;
     _text = _text[0].toUpperCase() + _text.substring(1);
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Align(
@@ -159,5 +185,14 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
         ),
       ),
     );
+  }
+
+  void _checkEnded(AnimationStatus status) {
+    if (status.index == 3) {
+      var _index = _calIndex(_ctrl.value * _angle + _current);
+      String _text = _items[_index].text;
+
+      _sendMessage(text:'{"text": "$_text", "source": "host", "type": "end"}'); 
+    }
   }
 }

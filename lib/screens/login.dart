@@ -66,7 +66,7 @@ class LoginPage extends StatelessWidget {
                 print("username: - ${usernameController.text}");
                 print("password: - ${passwordController.text}");
 
-                String url = 'http://192.168.1.86:8000/login/';
+                String url = 'http://192.168.0.5:8000/login/';
                 Map<String, String> headers = {"Content-type": "application/json"};
                 String jsonData = '{"username": "' + usernameController.text + '", "password": "' + passwordController.text + '"}';
 
