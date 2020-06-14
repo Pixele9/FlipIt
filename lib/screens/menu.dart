@@ -6,15 +6,46 @@ import '../utilities/constants.dart';
 import './new_roulette.dart';
 import './profile.dart';
 import './join_game.dart';
+import 'package:flutter/services.dart';
 import './newFlip.dart';
 
 import '../utilities/authentication.dart';
 
-class Menu extends StatelessWidget {
+class Menu extends StatefulWidget{
+  final StreamController<FlipItAuthentication> authenticationController;
+  Menu(this.authenticationController);
+
+  @override
+  MenuState createState() {
+    return MenuState(authenticationController);
+  } 
+}
+
+class MenuState extends State<Menu> {
   
   // StreamController lets other widgets write/read the state of a class, in this case FlipItAuthentication
   final StreamController<FlipItAuthentication> authenticationController;
-  Menu(this.authenticationController);
+  MenuState(this.authenticationController);
+
+  @override
+  void initState(){
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+    ]);
+  }
+
+  @override
+  dispose(){
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
