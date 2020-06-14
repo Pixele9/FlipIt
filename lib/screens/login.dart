@@ -188,7 +188,6 @@ class LoginPage extends StatelessWidget {
           Container(
             height: double.infinity,
             child: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(), // add scroll to view
               padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 120.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
