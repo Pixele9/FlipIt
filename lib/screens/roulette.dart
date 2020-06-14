@@ -72,7 +72,7 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
                           String source = data['source']; 
                           String type = data['type'];
 
-                          if (type != "connection" && source != "host"){
+                          if (type != "connection" && source != "host") {
                             return Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.0),
                               child: Align(

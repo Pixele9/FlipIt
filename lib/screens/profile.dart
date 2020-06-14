@@ -107,7 +107,7 @@ class _ProfileState extends State<Profile> {
     child: Text("App Information", style: cDataStyle,),
     applicationIcon: Icon(Icons.info),
     applicationName: "Flip It!",
-    applicationLegalese: "Developers:\nArturo García\nRaúl Gúzman\nÁndres Leal\nDaniel Rincón",
+    applicationLegalese: "Developers:\nArturo García\nRaúl Gúzman\nAndrés Leal\nDaniel Rincón",
     applicationVersion: "v1.0.0",
     icon: Icon(Icons.info, color: Colors.white,)
   );

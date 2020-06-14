@@ -5,6 +5,8 @@ import '../widgets/flipitButton.dart';
 import './roulette_status.dart';
 
 class JoinGame extends StatelessWidget {
+  final controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
 
@@ -57,7 +59,7 @@ class JoinGame extends StatelessWidget {
                                   width: 250.0,
                                   decoration: cOptionInputDecoration,
                                   margin: const EdgeInsets.only(bottom: 30.0),
-                                  child: flipItInput('ABC12')
+                                  child: flipItInput('ABC12', controller)
                                 ),
                               ],
                             ),),
@@ -65,7 +67,7 @@ class JoinGame extends StatelessWidget {
                               alignment: Alignment.bottomRight,
                               margin: const EdgeInsets.only(right: 20.0),
                               child: flipItButton('Join', () => {
-                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => RouletteStatus()))
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => RouletteStatus(controller.text)))
                               }),
                               )
                             ]

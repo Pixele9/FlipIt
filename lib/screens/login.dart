@@ -69,6 +69,7 @@ class LoginPage extends StatelessWidget {
                 String url = 'http://192.168.0.5:8000/login/';
                 Map<String, String> headers = {"Content-type": "application/json"};
                 String jsonData = '{"username": "' + usernameController.text + '", "password": "' + passwordController.text + '"}';
+                print(url);
 
                 Response response = await post(url, headers: headers, body: jsonData);
                 int statusCode = response.statusCode;
