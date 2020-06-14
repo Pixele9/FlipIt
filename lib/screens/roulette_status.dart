@@ -6,11 +6,11 @@ class RouletteStatus extends StatefulWidget {
  }
 class _RouletteStatusState extends State<RouletteStatus> {
   //DATA
-  String status = "Cargando...";
   
   @override
   Widget build(BuildContext context) {
       return Scaffold(
+        appBar: AppBar(title: Text("Status")),
           backgroundColor: primaryColor,
           //Body representa el body de la ruta
           body: Align(
@@ -23,20 +23,21 @@ class _RouletteStatusState extends State<RouletteStatus> {
                         width: MediaQuery.of(context).size.width,
                         color: primaryColor,
                         child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Roulette Status",
-                                        style: cStatusTitleStyle,
-                                      ),
-                                      Text(
-                                        status,
-                                        style: cStatusStyle,
-                                        )
-                                    ]
-                                  ) 
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                "Roulette Status",
+                                style: cStatusTitleStyle,
+                              ),
+                              SizedBox(height: 10.0,),
+                              Text(
+                                "Cargando...",
+                                style: cStatusStyle,
                                 )
+                            ]
+                          ) 
+                        )
                     );
             }),
         )

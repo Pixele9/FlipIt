@@ -90,6 +90,7 @@ class _CoinTossState extends State<CoinToss> with SingleTickerProviderStateMixin
   }
 
   _buildCoin() {
+    // int randFace = Random().nextInt(90)+10;
     int randFace = Random().nextInt(90)+10;
     const FRONT = "assets/Heads.png";
     const BACK = "assets/Tails.png";  

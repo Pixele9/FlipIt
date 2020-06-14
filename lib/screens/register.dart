@@ -70,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
             onPressed: () async {
           if(usernameController.text != '' && passwordController.text != '' && emailController.text != '' && (passwordController.text == confirmController.text)){
                 
-             String url = 'http://192.168.0.5:8000/signup/';
+             String url = 'http://192.168.1.86:8000/signup/';
             Map<String, String> headers = {"Content-type": "application/json"};
             String jsonData = '{"username": "' + usernameController.text + '", "email": "' + emailController.text + '", "password": "' + passwordController.text + '"}';
 
@@ -110,7 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true, // prevents messing up w/ elements on screen
+      resizeToAvoidBottomInset: false, // prevents messing up w/ elements on screen
       body: Builder(
         builder: (BuildContext context){
         return Stack(
@@ -120,6 +120,16 @@ class _RegisterPageState extends State<RegisterPage> {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: bgColor
+              ),
+            ),
+            Container(
+              alignment: Alignment(-2.6, 0.86),
+              child: Image(
+                height: 260,
+                width: 321,
+                image: AssetImage('assets/standing-19.png'),
+                fit: BoxFit.contain,
+                alignment: Alignment.bottomLeft,
               ),
             ),
             Container(
@@ -148,12 +158,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         _registerButton(context),
                       ],
                     ),
-                    Container(
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: _registerMessageButton(),
-                      )
-                    ),
+                    // Container(
+                    //   child: Align(
+                    //     alignment: Alignment.bottomCenter,
+                    //     child: _registerMessageButton(),
+                    //   )
+                    // ),
                   ],
                 ),
               ),
@@ -168,12 +178,12 @@ class _RegisterPageState extends State<RegisterPage> {
             //     alignment: Alignment.bottomLeft,
             //   ),
             // ),
-            // Container(
-            //   child: Align(
-            //     alignment: Alignment.bottomCenter,
-            //     child: _registerMessageButton(),
-            //   )
-            // ),
+            Container(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: _registerMessageButton(),
+              )
+            ),
           ],
         );
         }

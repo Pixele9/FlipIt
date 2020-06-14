@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 import '../widgets/flipItInput.dart';
 import '../widgets/flipitButton.dart';
+import './roulette_status.dart';
 
 class JoinGame extends StatelessWidget {
   @override
@@ -63,7 +64,9 @@ class JoinGame extends StatelessWidget {
                               Container(
                               alignment: Alignment.bottomRight,
                               margin: const EdgeInsets.only(right: 20.0),
-                              child: flipItButton('Join', () => print('joined :)')),
+                              child: flipItButton('Join', () => {
+                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => RouletteStatus()))
+                              }),
                               )
                             ]
                               )

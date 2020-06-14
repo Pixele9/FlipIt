@@ -125,8 +125,8 @@ final cStatusTitleStyle = GoogleFonts.montserrat(
 );
 final cStatusStyle = GoogleFonts.montserrat(
   color: Colors.white,
-  fontWeight: FontWeight.w600,
-  fontSize: 35.0,
+  fontWeight: FontWeight.w300,
+  fontSize: 29.0,
 );
 
 Random random = new Random();

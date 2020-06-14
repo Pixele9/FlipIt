@@ -163,6 +163,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // https://api.flutter.dev/flutter/material/Scaffold/of.html
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Builder(
         builder: (BuildContext context){
           return Stack(
@@ -175,9 +176,19 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           Container(
+            alignment: Alignment(-1.7, 0.9),
+            child: Image(
+              height: 250,
+              width: 250,
+              image: AssetImage('assets/standing-6.png'),
+              fit: BoxFit.contain,
+              alignment: Alignment.bottomRight,
+            ),
+          ),
+          Container(
             height: double.infinity,
             child: SingleChildScrollView(
-              // physics: AlwaysScrollableScrollPhysics(), // add scroll to view
+              physics: AlwaysScrollableScrollPhysics(), // add scroll to view
               padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 120.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -195,16 +206,16 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            alignment: Alignment(-1.7, 0.9),
-            child: Image(
-              height: 250,
-              width: 250,
-              image: AssetImage('assets/standing-6.png'),
-              fit: BoxFit.contain,
-              alignment: Alignment.bottomRight,
-            ),
-          ),
+          // Container(
+          //   alignment: Alignment(-1.7, 0.9),
+          //   child: Image(
+          //     height: 250,
+          //     width: 250,
+          //     image: AssetImage('assets/standing-6.png'),
+          //     fit: BoxFit.contain,
+          //     alignment: Alignment.bottomRight,
+          //   ),
+          // ),
           Container(
             child: Align(
               alignment: Alignment.bottomCenter,
