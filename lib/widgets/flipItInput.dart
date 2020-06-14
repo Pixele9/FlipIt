@@ -6,7 +6,7 @@ Widget flipItInput(String helperText, [TextEditingController controller]){
     // maxLengthEnforced: true
     controller: controller,
     textAlign: TextAlign.center,
-    showCursor: false,
+    showCursor: true,
     style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
     decoration: InputDecoration(
       border: InputBorder.none, 
