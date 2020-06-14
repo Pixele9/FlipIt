@@ -15,8 +15,8 @@ class GameConsumer(WebsocketConsumer):
         self.room_name = self.scope['url_route']['kwargs']['codigo']
         self.room_group_name = self.room_name
 
-        print(self.room_group_name)
-        print(self.userID)
+        print(self.scope['url_route']['kwargs'].get('codigo'))
+        print(self.scope['session'].get('user'))
 
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
@@ -26,6 +26,7 @@ class GameConsumer(WebsocketConsumer):
         self.accept()
 
     def receive(self, text_data):
+        print(text_data)
         data = json.loads(text_data)
         codigo = self.scope['url_route']['kwargs']['codigo']
 
@@ -52,7 +53,7 @@ class GameConsumer(WebsocketConsumer):
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({
-            'message': message
+            'message': message,
         }))
     
     # async def connect(self, event):

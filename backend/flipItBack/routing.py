@@ -11,7 +11,7 @@ application = ProtocolTypeRouter({
         AuthMiddlewareStack(
             URLRouter(
                 [
-                    url(r"^game/(?P<codigo>[\w.@+-]+)", consumers.GameConsumer)
+                    url(r"^game/(?P<codigo>[\w]+)", consumers.GameConsumer),
                 ]
             )
         )

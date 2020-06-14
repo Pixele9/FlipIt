@@ -96,8 +96,7 @@ class RouletteOptions extends StatelessWidget {
                                     });
 
                                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                                        print('ws://192.168.1.86:8000/game/$code');
-                                        return RoulettePage(userOptions, channel: IOWebSocketChannel.connect('wss://echo.websocket.org'));
+                                        return RoulettePage(userOptions, code);
                                       }
                                     ));
                                   } else {

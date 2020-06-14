@@ -136,65 +136,68 @@ class _ProfileState extends State<Profile> {
           backgroundColor: primaryColor,
           appBar: AppBar(),
           //Body representa el body de la ruta
-          body: Align(
+          body: SingleChildScrollView(
+            child: Align(
           //Esta propiedad de la widget Align alinea todo el contenido en la parte superior y al centro 
-            alignment: Alignment.topCenter,
-            //Lo importante de la widget LayoutBuilder es que esta widget se adapta al tamaño de la widget padre
-            child: LayoutBuilder(
+              alignment: Alignment.topCenter,
+              //Lo importante de la widget LayoutBuilder es que esta widget se adapta al tamaño de la widget padre
+              child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-                    return Container(
-                        width: MediaQuery.of(context).size.width,
-                        color: primaryColor,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              SizedBox(height: 40.0),
-                              Container(
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.only(top: 30.0, bottom: 20.0),
-                                width: MediaQuery.of(context).size.width,
-                                child: Text(
-                                  "Flip It!",
-                                  style: cFlipItStyle,
-                                ),
-                                 
+                  return Container(
+                      width: MediaQuery.of(context).size.width,
+                      color: primaryColor,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            SizedBox(height: 40.0),
+                            Container(
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+                              width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                "Flip It!",
+                                style: cFlipItStyle,
                               ),
-                              Container(
-                                height: 130,
-                                width: 110,
-                                child: ListView(
+                              
+                            ),
+                            Container(
+                              height: 130,
+                              width: 110,
+                              child: ListView(
+                              children: <Widget>[
+                                CircleAvatar(
+                                  backgroundImage: AssetImage(profilePictureURL),
+                                  radius: 53,
+                              ),
+                              ],
+                              ),
+                            ),
+                            Container(       
+                              width: MediaQuery.of(context).size.width,
+                              height: 300,
+                              child: ListView(
                                 children: <Widget>[
-                                  CircleAvatar(
-                                    backgroundImage: AssetImage(profilePictureURL),
-                                    radius: 53,
-                                ),
+                                  getItem(Icon(Icons.person, color: white, size: 30,), 'Username:', username,0),
+                                  getItem(Icon(Icons.mail, color: white, size: 30,), 'Mail:', mail,1),
+                                  // getItem(Icon(Icons.lock, color: white, size: 30,), 'Password:','*********',2),
+                                  info,
                                 ],
-                                ),
                               ),
-                              Container(       
-                                width: MediaQuery.of(context).size.width,
-                                height: 300,
-                                child: ListView(
-                                  children: <Widget>[
-                                    getItem(Icon(Icons.person, color: white, size: 30,), 'Username:', username,0),
-                                    getItem(Icon(Icons.mail, color: white, size: 30,), 'Mail:', mail,1),
-                                    // getItem(Icon(Icons.lock, color: white, size: 30,), 'Password:','*********',2),
-                                    info,
-                                  ],
-                                ),
+                            ),
+                            SizedBox(
+                              width: 200,
+                              child: Container(
+                                child: flipItButton('Logout', () => logout())
                               ),
-                              SizedBox(
-                                width: 200,
-                                child: Container(
-                                  child: flipItButton('Logout', () => logout())
-                                ),
-                              ),
-                            ]
-                        )
+                            ),
+                          ]
+                      )
                     );
-            }),
-        )
+                }
+              ),
+            )
+          )
     );
   }
 }
