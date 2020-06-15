@@ -1,11 +1,15 @@
+import 'package:flutter/services.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:flutter/material.dart';
+import 'package:get_ip/get_ip.dart';
+
 import '../utilities/board_view.dart';
 import '../utilities/items.dart';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
+import 'dart:async';
 
 class RoulettePage extends StatefulWidget {
   final List<Item> _items;
@@ -29,19 +33,40 @@ class _RoulettePageState extends State<RoulettePage> with SingleTickerProviderSt
   AnimationController _ctrl;
   Animation _ani;
   final List<Item> _items;
+  String _ip;
 
   @override
   void initState() {
     super.initState();
+    initPlatformState();
     var _duration = Duration(milliseconds: 5000);
     _ctrl = AnimationController(vsync: this, duration: _duration);
 
     _ctrl.addStatusListener(_checkEnded);
 
     _ani = CurvedAnimation(parent: _ctrl, curve: Curves.fastLinearToSlowEaseIn);
-    channel = IOWebSocketChannel.connect('ws://192.168.0.5:8000/game/$code');
-    _sendMessage(text:'{"text": "Connected", "source": "host", "type": "connection"}');
   }
+  
+  Future<void> initPlatformState() async {
+    String ipAddress;
+    
+    try {
+      ipAddress = await GetIp.ipAddress;
+      channel = IOWebSocketChannel.connect('ws://$ipAddress:8000/game/$code');
+      print(ipAddress);
+      _sendMessage(text:'{"text": "Connected", "source": "host", "type": "connection"}');
+    } on PlatformException {
+      ipAddress = 'Failed to get ipAddress.';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _ip = ipAddress;
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

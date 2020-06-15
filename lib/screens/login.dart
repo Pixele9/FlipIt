@@ -1,34 +1,70 @@
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../utilities/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:get_ip/get_ip.dart';
+
+import '../utilities/authentication.dart';
 import '../utilities/constants.dart';
 import '../utilities/ensurevisible.dart';
-import 'package:http/http.dart';
 import './register.dart';
-import 'dart:async';
+
 import 'dart:convert';
+import 'dart:async';
 
 const bgColor = const Color(0xFF008CFA);
 
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   // StreamController lets other widgets write/read the state of a class, in this case FlipItAuthentication
   final StreamController<FlipItAuthentication> authenticationController;
   LoginPage(this.authenticationController);
 
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String _ip;
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    String ipAddress;
+
+    try {
+      ipAddress = await GetIp.ipAddress;
+    } on PlatformException {
+      ipAddress = 'Failed to get ipAddress.';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _ip = ipAddress;
+    });
+  }
+
   login() async{
-    authenticationController.add(FlipItAuthentication.loggedInState());
+    widget.authenticationController.add(FlipItAuthentication.loggedInState());
   }
 
   final usernameController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   void dispose() {
+    super.dispose();
     usernameController.dispose();
     passwordController.dispose();
   }
 
   FocusNode focusNodeUsername = new FocusNode();
+
   FocusNode focusNodePassword = new FocusNode();
 
   Widget _registerMessageButton(BuildContext context) {
@@ -65,8 +101,7 @@ class LoginPage extends StatelessWidget {
               if(usernameController.text != '' && passwordController.text  != ''){
                 print("username: - ${usernameController.text}");
                 print("password: - ${passwordController.text}");
-
-                String url = 'http://192.168.0.5:8000/login/';
+                String url = 'http://$_ip:8000/login/';
                 Map<String, String> headers = {"Content-type": "application/json"};
                 String jsonData = '{"username": "' + usernameController.text + '", "password": "' + passwordController.text + '"}';
                 print(url);
@@ -108,7 +143,7 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _usernameInput() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +169,7 @@ class LoginPage extends StatelessWidget {
       ],
     );
   }
-  
+
   Widget _passwordInput() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,7 +194,7 @@ class LoginPage extends StatelessWidget {
       ],
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     // https://api.flutter.dev/flutter/material/Scaffold/of.html

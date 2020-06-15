@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart';
+import 'package:get_ip/get_ip.dart';
+
 import '../utilities/constants.dart';
 import '../screens/login.dart';
-import 'package:http/http.dart';
 
 const bgColor = const Color(0xFF008CFA);
 
@@ -16,6 +19,30 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
 
+  String _ip;
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+
+  Future<void> initPlatformState() async {
+    String ipAddress;
+    
+    try {
+      ipAddress = await GetIp.ipAddress;
+    } on PlatformException {
+      ipAddress = 'Failed to get ipAddress.';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _ip = ipAddress;
+    });
+  }
 
   void dispose() {
     usernameController.dispose();
@@ -70,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
             onPressed: () async {
           if(usernameController.text != '' && passwordController.text != '' && emailController.text != '' && (passwordController.text == confirmController.text)){
                 
-             String url = 'http://192.168.1.86:8000/signup/';
+            String url = 'http://$_ip:8000/signup/';
             Map<String, String> headers = {"Content-type": "application/json"};
             String jsonData = '{"username": "' + usernameController.text + '", "email": "' + emailController.text + '", "password": "' + passwordController.text + '"}';
 
