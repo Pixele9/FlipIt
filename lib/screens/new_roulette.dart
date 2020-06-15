@@ -46,27 +46,27 @@ class NewRoulette extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Container(
-                                  alignment: Alignment.center,
-                                  margin: const EdgeInsets.only(bottom: 10.0),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Container(
-                                        alignment: Alignment.center,
-                                        width: MediaQuery.of(context).size.width / 2,
-                                        margin: const EdgeInsets.only(bottom: 10.0),
-                                        child: Text(
-                                          "Participants",
-                                          style: cLabelStyle,
-                                        ), 
-                                      ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  width: 250.0,
-                                  decoration: cOptionInputDecoration,
-                                  margin: const EdgeInsets.only(bottom: 30.0),
-                                  child: flipItInput('0-8')
-                                ),
+                                // Container(
+                                //   alignment: Alignment.center,
+                                //   margin: const EdgeInsets.only(bottom: 10.0),
+                                //   width: MediaQuery.of(context).size.width,
+                                //   child: Container(
+                                //         alignment: Alignment.center,
+                                //         width: MediaQuery.of(context).size.width / 2,
+                                //         margin: const EdgeInsets.only(bottom: 10.0),
+                                //         child: Text(
+                                //           "Participants",
+                                //           style: cLabelStyle,
+                                //         ), 
+                                //       ),
+                                // ),
+                                // Container(
+                                //   alignment: Alignment.center,
+                                //   width: 250.0,
+                                //   decoration: cOptionInputDecoration,
+                                //   margin: const EdgeInsets.only(bottom: 30.0),
+                                //   child: flipItInput('0-8')
+                                // ),
                                 Container(
                                   alignment: Alignment.center,
                                   width: MediaQuery.of(context).size.width / 2,
